@@ -12,27 +12,14 @@ interface GermanCard {
 function HomePage () {
     const [state, setState] = useState<GermanCard[] | null>(null);
     const [randomWord, setRandomWord] = useState<GermanCard | null>(null);
+    const [language, setLanguage] = useState<string | null>("ger")
+    const [isTranslation, setIsTranslation] = useState(false)
 
     useEffect(
         () => {
-            fetchData()  
+            fetchData();
         }, []
     );
-
-    useEffect(
-        ()=> {  // удалить. Функция будет передаваться на кнопку "далее" 
-            if(state){
-                const word = getRandomWord()
-                setRandomWord(word);
-            }
-        }, [state]
-    )
-
-    useEffect(() => { // удалить. Функция будет передаваться на кнопку "далее" 
-        if (randomWord) {
-            deleteLastRandomWord(randomWord.id);
-        }
-    }, [randomWord]);
 
     async function fetchData() {
         const url = 'https://olvsivkov.github.io/german_cards/api/data.json';
@@ -44,19 +31,30 @@ function HomePage () {
             }
             const data: GermanCard[] = await response.json();
             setState(data)
+            setRandomWord(getRandomWord(data)); 
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
         }
     }
 
-    function getRandomWord() {
-        const dataArray = state;
+    function getRandomWord(dataArray: GermanCard[]) { // изменить, чтоб функция выдавала случайный id
         if (!dataArray || dataArray.length === 0) {
             return null;
         }
     
         const randomIndex = Math.floor(Math.random() * dataArray.length);
+        console.log(randomIndex)
         return dataArray[randomIndex];
+    }
+
+    function handleClickNextWord(id: number) {
+        if(state){
+            deleteLastRandomWord(id);
+            const word = getRandomWord(state)
+            setRandomWord(word);
+            setIsTranslation(false)
+            console.log("Click!")
+        }
     }
 
     function deleteLastRandomWord(wordID: number) {
@@ -66,17 +64,32 @@ function HomePage () {
         }
     }
 
-    console.log(state);
-    console.log(randomWord);
-    console.log(state)
+    function openNewSession(){
+        fetchData()
+    }
+
+    function changeLanguage(){
+        if(language === "ger") setLanguage("rus")
+        else setLanguage("ger")
+    }
 
     return (
         <div className={styles.body}>
             <header className={styles.header}>
                 <p>HEADER</p>
+                <p>{state?.length}</p>
+                <button onClick={openNewSession}>Сброс</button>
+                <button onClick={changeLanguage}>Менять язык</button>
+                <p>язык {language}</p>
             </header>
             <main className={styles.main}>
-                <CardPage/>
+                <CardPage
+                    randomWord={randomWord}
+                    handleClickNextWord={handleClickNextWord}
+                    language={language}
+                    isTranslation={isTranslation}
+                    setIsTranslation={setIsTranslation}
+                />
             </main>
             <footer className={styles.footer}>
                 <p>FOOTER</p>
