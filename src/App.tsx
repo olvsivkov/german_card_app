@@ -1,10 +1,12 @@
 import './App.css'
 
+import HomePage from './components/homePage'
+
 function App() {
 
   return (
     <>
-      <p>Hello world</p>
+      <HomePage/>
     </>
   )
 }
