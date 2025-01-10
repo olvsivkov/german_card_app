@@ -11,12 +11,28 @@ interface GermanCard {
 
 function HomePage () {
     const [state, setState] = useState<GermanCard[] | null>(null);
+    const [randomWord, setRandomWord] = useState<GermanCard | null>(null);
 
     useEffect(
         () => {
             fetchData()  
         }, []
     );
+
+    useEffect(
+        ()=> {  // удалить. Функция будет передаваться на кнопку "далее" 
+            if(state){
+                const word = getRandomWord()
+                setRandomWord(word);
+            }
+        }, [state]
+    )
+
+    useEffect(() => { // удалить. Функция будет передаваться на кнопку "далее" 
+        if (randomWord) {
+            deleteLastRandomWord(randomWord.id);
+        }
+    }, [randomWord]);
 
     async function fetchData() {
         const url = 'https://olvsivkov.github.io/german_cards/api/data.json';
@@ -33,6 +49,25 @@ function HomePage () {
         }
     }
 
+    function getRandomWord() {
+        const dataArray = state;
+        if (!dataArray || dataArray.length === 0) {
+            return null;
+        }
+    
+        const randomIndex = Math.floor(Math.random() * dataArray.length);
+        return dataArray[randomIndex];
+    }
+
+    function deleteLastRandomWord(wordID: number) {
+        if (state) { 
+            const newArray = state.filter(elem => elem.id !== wordID);
+            setState(newArray.length > 0 ? newArray : null);
+        }
+    }
+
+    console.log(state);
+    console.log(randomWord);
     console.log(state)
 
     return (
