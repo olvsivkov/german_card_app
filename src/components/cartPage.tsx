@@ -19,7 +19,6 @@ function CardPage({ randomWord, handleClickNextWord, language, isTranslation, se
     if (!randomWord) return <p>Загрузка...</p>;
 
     const { ger, id, rus } = randomWord;
-    //const chooseLanguage = (language === "ger") ? (isTranslation ? <h2>{rus}</h2> : <h2>{ger}</h2>) : (isTranslation ? <h2>{ger}</h2> : <h2>{rus}</h2>)
 
     function getTranslatedText(language: string | null, isTranslation: boolean, ger: string, rus: string ) {
         if (language === "ger") {

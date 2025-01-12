@@ -9,8 +9,13 @@
     background-color: #f9f9f9;
     height: 15%;
     display: flex;
+    justify-content: space-between; 
     align-items: center;
-    justify-content: center;
+    padding: 10px; 
+}
+
+.header p {
+    margin: 0;
 }
 
 .main {

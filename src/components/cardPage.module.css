@@ -16,6 +16,11 @@
 .right {
     width: 20%; 
     border: 1px solid black; 
+    cursor: pointer;
+}
+
+.right:hover {
+    background-color: #e7e5e5;
 }
 
 .top {
@@ -26,4 +31,9 @@
 .bottom {
     height: 20%; 
     border: 1px solid black; 
+    cursor: pointer;
+}
+
+.bottom:hover {
+    background-color: #e7e5e5;
 }

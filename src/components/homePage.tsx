@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import CardPage from "./cartPage";
+import Header from './header';
 import styles from "./homePage.module.css"; 
 
 interface GermanCard {
@@ -24,19 +25,53 @@ function HomePage () {
 
     async function fetchData() {
         const url = 'https://olvsivkov.github.io/german_cards/api/data.json';
-    
+
         try {
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Сетевой ответ не был успешным');
             }
-            const data: GermanCard[] = await response.json();
-            setState(data)
-            setRandomWord(getRandomWord(data)); 
+            
+            const jsonData = await response.json();
+            
+            // Объединяем все слова из разных разделов в один массив
+            const allWords = [];
+
+            // Слова и фразы
+            if (jsonData["Слова и фразы"]) {
+                allWords.push(...jsonData["Слова и фразы"]);
+            }
+
+            // Популярные глаголы
+            if (jsonData["Популярные глаголы"]) {
+                allWords.push(...jsonData["Популярные глаголы"]);
+            }
+
+            // Месяцы
+            if (jsonData["Месяцы"]) {
+                allWords.push(...jsonData["Месяцы"]);
+            }
+
+            // Слова отрицания
+            if (jsonData["Слова отрицания"]) {
+                allWords.push(...jsonData["Слова отрицания"]);
+            }
+
+            // Популярные вопросы
+            if (jsonData["Популярные вопросы"]) {
+                allWords.push(...jsonData["Популярные вопросы"]);
+            }
+
+            // Установка состояния с объединённым массивом слов
+            setState(allWords);
+            console.log(allWords)
+            // Выбор случайного слова
+            setRandomWord(getRandomWord(allWords)); 
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
         }
-    }
+    }   
+    
 
     function getRandomWord(dataArray: GermanCard[]) {
         if (!dataArray || dataArray.length === 0) {
@@ -88,11 +123,12 @@ function HomePage () {
     return (
         <div className={styles.body}>
             <header className={styles.header}>
-                <p>HEADER</p>
-                <p>{state?.length}</p>
-                <button onClick={openNewSession}>Сброс</button>
-                <button onClick={changeLanguage}>Менять язык</button>
-                <p>язык {language}</p>
+                <Header
+                    state={state?.length ?? 0}
+                    language={language}
+                    openNewSession={openNewSession}
+                    changeLanguage={changeLanguage}
+                />
             </header>
             <main className={styles.main}>
                 {state?.length === 1 ? 
