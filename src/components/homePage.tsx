@@ -14,6 +14,7 @@ function HomePage () {
     const [randomWord, setRandomWord] = useState<GermanCard | null>(null);
     const [language, setLanguage] = useState<string | null>("ger")
     const [isTranslation, setIsTranslation] = useState(false)
+    const [lastWordId, setLastWordId] = useState<number | null>(null); //!!!
 
     useEffect(
         () => {
@@ -37,23 +38,33 @@ function HomePage () {
         }
     }
 
-    function getRandomWord(dataArray: GermanCard[]) { // изменить, чтоб функция выдавала случайный id
+    function getRandomWord(dataArray: GermanCard[]) {
         if (!dataArray || dataArray.length === 0) {
             return null;
         }
-    
-        const randomIndex = Math.floor(Math.random() * dataArray.length);
-        console.log(randomIndex)
-        return dataArray[randomIndex];
+        
+        let randomIndex;
+        let selectedWord;
+
+        do {
+            randomIndex = Math.floor(Math.random() * dataArray.length);
+            selectedWord = dataArray[randomIndex];
+        } while (selectedWord.id === lastWordId); 
+
+        return selectedWord;
     }
 
     function handleClickNextWord(id: number) {
         if(state){
             deleteLastRandomWord(id);
             const word = getRandomWord(state)
-            setRandomWord(word);
-            setIsTranslation(false)
-            console.log("Click!")
+            if (word) {
+                setRandomWord(word);
+                setLastWordId(word.id); 
+                setIsTranslation(false);
+            } else {
+                console.log("Нет доступных слов");
+            }
         }
     }
 
@@ -66,6 +77,7 @@ function HomePage () {
 
     function openNewSession(){
         fetchData()
+        setLastWordId(null); 
     }
 
     function changeLanguage(){
@@ -83,13 +95,18 @@ function HomePage () {
                 <p>язык {language}</p>
             </header>
             <main className={styles.main}>
+                {state?.length === 1 ? 
+                <div>
+                    <p>Карточки закончились. Начать заново ?</p>
+                    <button onClick={openNewSession}>Заново</button> 
+                </div> :
                 <CardPage
                     randomWord={randomWord}
                     handleClickNextWord={handleClickNextWord}
                     language={language}
                     isTranslation={isTranslation}
                     setIsTranslation={setIsTranslation}
-                />
+                />}
             </main>
             <footer className={styles.footer}>
                 <p>FOOTER</p>
@@ -99,3 +116,4 @@ function HomePage () {
 }
 
 export default HomePage
+
