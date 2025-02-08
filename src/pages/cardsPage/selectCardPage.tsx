@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import CardPage from "./cartPage";
-import Header from './header';
-import styles from "./homePage.module.css"; 
+import CardPage from "./cardPage";
+import styles from "./selectCardPage.module.css"; 
 
 interface GermanCard {
     id: number;
@@ -10,12 +10,35 @@ interface GermanCard {
     rus: string;
 }
 
-function HomePage () {
+interface ItemCardProps {
+    cardName: string;
+    handleClickCards: (cardName: string) => void;
+}
+
+interface CardData {
+    [key: string]: GermanCard[];
+  }
+
+function ItemCard({ cardName, handleClickCards }: ItemCardProps) {
+    return( 
+        <div>
+            <button onClick={() =>handleClickCards(cardName)}>{cardName}</button>
+        </div>
+    )
+}
+
+function SelectCardPage () {
+
+    const navigate = useNavigate();
+
     const [state, setState] = useState<GermanCard[] | null>(null);
+    const [jsonData, setJsonData] = useState<CardData | null>(null);
     const [randomWord, setRandomWord] = useState<GermanCard | null>(null);
     const [language, setLanguage] = useState<string | null>("ger")
     const [isTranslation, setIsTranslation] = useState(false)
     const [lastWordId, setLastWordId] = useState<number | null>(null); //!!!
+    const [cardsTitles, setCardsTitles] = useState<string[]>([])
+    const [touchCardButton, setTouchCardButton] = useState(false)
 
     useEffect(
         () => {
@@ -23,7 +46,7 @@ function HomePage () {
         }, []
     );
 
-    async function fetchData() {
+    /*async function fetchData() {
         const url = 'https://olvsivkov.github.io/german_cards/api/data.json';
 
         try {
@@ -36,6 +59,8 @@ function HomePage () {
             
             // Объединяем все слова из разных разделов в один массив
             const allWords = [];
+
+            console.log(jsonData)
 
             // Слова и фразы
             if (jsonData["Слова и фразы"]) {
@@ -64,13 +89,31 @@ function HomePage () {
 
             // Установка состояния с объединённым массивом слов
             setState(allWords);
-            console.log(allWords)
             // Выбор случайного слова
             setRandomWord(getRandomWord(allWords)); 
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
         }
-    }   
+    }   */
+
+    async function fetchData() {
+        const url = 'https://olvsivkov.github.io/german_cards/api/data.json';
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Сетевой ответ не был успешным');
+            }
+            
+            const jsonData = await response.json();
+
+            const allKeys = Object.keys(jsonData);
+              setCardsTitles(allKeys);
+              setJsonData(jsonData)
+        } catch (error) {
+            console.error('Ошибка при загрузке данных:', error);
+        }
+    }
     
 
     function getRandomWord(dataArray: GermanCard[]) {
@@ -110,6 +153,13 @@ function HomePage () {
         }
     }
 
+    function handleClickCards(key: string | null | undefined) {
+        if (!jsonData || !key) return; 
+        setTouchCardButton(true);
+        setState(jsonData[key]);
+        setRandomWord(getRandomWord(jsonData[key])); 
+    }
+
     function openNewSession(){
         fetchData()
         setLastWordId(null); 
@@ -120,21 +170,20 @@ function HomePage () {
         else setLanguage("ger")
     }
 
+    const cards = cardsTitles.map((cardName) => <ItemCard key={cardName} cardName={cardName} handleClickCards={handleClickCards} />);
+    
+
     return (
         <div className={styles.body}>
-            <header className={styles.header}>
-                <Header
-                    state={state?.length ?? 0}
-                    language={language}
-                    openNewSession={openNewSession}
-                    changeLanguage={changeLanguage}
-                />
-            </header>
+
+            {touchCardButton ? 
             <main className={styles.main}>
                 {state?.length === 1 ? 
                 <div>
                     <p>Карточки закончились. Начать заново ?</p>
-                    <button onClick={openNewSession}>Заново</button> 
+                    <button onClick={() => setTouchCardButton(false)}>
+                        Назад
+                    </button>
                 </div> :
                 <CardPage
                     randomWord={randomWord}
@@ -142,14 +191,21 @@ function HomePage () {
                     language={language}
                     isTranslation={isTranslation}
                     setIsTranslation={setIsTranslation}
+                    state={state}
+                    openNewSession={openNewSession}
+                    changeLanguage={changeLanguage}
+                    setTouchCardButton={setTouchCardButton}
                 />}
-            </main>
-            <footer className={styles.footer}>
-                <p>FOOTER</p>
-            </footer>
+            </main> :
+            <div>
+                <button onClick={() => navigate(-1)}>
+                    Назад
+                </button>
+                {cards}
+            </div> }
         </div>
     )
 }
 
-export default HomePage
+export default SelectCardPage
 

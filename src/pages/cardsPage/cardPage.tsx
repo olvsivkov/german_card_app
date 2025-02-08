@@ -1,3 +1,5 @@
+import CardsMenu from './cardsMenu';
+
 import styles from './cardPage.module.css'
 
 interface GermanCard {
@@ -12,9 +14,14 @@ interface CardPageProps {
     language: string | null;
     isTranslation: boolean;
     setIsTranslation: (boolean: boolean) => void;
+    state: GermanCard[] | null | undefined;
+    openNewSession: () => void;
+    changeLanguage: () => void;
+    setTouchCardButton: (boolean: boolean) => void
+
 }
 
-function CardPage({ randomWord, handleClickNextWord, language, isTranslation, setIsTranslation }: CardPageProps) {
+function CardPage({ randomWord, handleClickNextWord, language, isTranslation, setIsTranslation, state, openNewSession, changeLanguage, setTouchCardButton }: CardPageProps) {
 
     if (!randomWord) return <p>Загрузка...</p>;
 
@@ -36,6 +43,13 @@ function CardPage({ randomWord, handleClickNextWord, language, isTranslation, se
 
     return(
         <div>
+            <CardsMenu
+                state={state?.length}
+                language={language}
+                openNewSession={openNewSession}
+                changeLanguage={changeLanguage}
+                setTouchCardButton={setTouchCardButton}
+            />
             <p>Cards</p>
             <div className={styles.parent}>
                 <div className ={styles.left}>
