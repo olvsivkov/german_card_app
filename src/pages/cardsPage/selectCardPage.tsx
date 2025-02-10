@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import CardPage from "./cardPage";
+import CardsMenu from './cardsMenu.js';
+
 import styles from "./selectCardPage.module.css"; 
 
 interface GermanCard {
@@ -10,26 +11,11 @@ interface GermanCard {
     rus: string;
 }
 
-interface ItemCardProps {
-    cardName: string;
-    handleClickCards: (cardName: string) => void;
-}
-
 interface CardData {
     [key: string]: GermanCard[];
   }
 
-function ItemCard({ cardName, handleClickCards }: ItemCardProps) {
-    return( 
-        <div>
-            <button onClick={() =>handleClickCards(cardName)}>{cardName}</button>
-        </div>
-    )
-}
-
 function SelectCardPage () {
-
-    const navigate = useNavigate();
 
     const [state, setState] = useState<GermanCard[] | null>(null);
     const [jsonData, setJsonData] = useState<CardData | null>(null);
@@ -40,61 +26,12 @@ function SelectCardPage () {
     const [cardsTitles, setCardsTitles] = useState<string[]>([])
     const [touchCardButton, setTouchCardButton] = useState(false)
 
+    // api запрос даных для карточек
     useEffect(
         () => {
             fetchData();
         }, []
     );
-
-    /*async function fetchData() {
-        const url = 'https://olvsivkov.github.io/german_cards/api/data.json';
-
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error('Сетевой ответ не был успешным');
-            }
-            
-            const jsonData = await response.json();
-            
-            // Объединяем все слова из разных разделов в один массив
-            const allWords = [];
-
-            console.log(jsonData)
-
-            // Слова и фразы
-            if (jsonData["Слова и фразы"]) {
-                allWords.push(...jsonData["Слова и фразы"]);
-            }
-
-            // Популярные глаголы
-            if (jsonData["Популярные глаголы"]) {
-                allWords.push(...jsonData["Популярные глаголы"]);
-            }
-
-            // Месяцы
-            if (jsonData["Месяцы"]) {
-                allWords.push(...jsonData["Месяцы"]);
-            }
-
-            // Слова отрицания
-            if (jsonData["Слова отрицания"]) {
-                allWords.push(...jsonData["Слова отрицания"]);
-            }
-
-            // Популярные вопросы
-            if (jsonData["Популярные вопросы"]) {
-                allWords.push(...jsonData["Популярные вопросы"]);
-            }
-
-            // Установка состояния с объединённым массивом слов
-            setState(allWords);
-            // Выбор случайного слова
-            setRandomWord(getRandomWord(allWords)); 
-        } catch (error) {
-            console.error('Ошибка при загрузке данных:', error);
-        }
-    }   */
 
     async function fetchData() {
         const url = 'https://olvsivkov.github.io/german_cards/api/data.json';
@@ -108,8 +45,8 @@ function SelectCardPage () {
             const jsonData = await response.json();
 
             const allKeys = Object.keys(jsonData);
-              setCardsTitles(allKeys);
-              setJsonData(jsonData)
+            setCardsTitles(allKeys);
+            setJsonData(jsonData)
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
         }
@@ -160,31 +97,14 @@ function SelectCardPage () {
         setRandomWord(getRandomWord(jsonData[key])); 
     }
 
-    function openNewSession(){
-        fetchData()
-        setLastWordId(null); 
-    }
-
     function changeLanguage(){
         if(language === "ger") setLanguage("rus")
         else setLanguage("ger")
     }
 
-    const cards = cardsTitles.map((cardName) => <ItemCard key={cardName} cardName={cardName} handleClickCards={handleClickCards} />);
-    
-
     return (
         <div className={styles.body}>
-
             {touchCardButton ? 
-            <main className={styles.main}>
-                {state?.length === 1 ? 
-                <div>
-                    <p>Карточки закончились. Начать заново ?</p>
-                    <button onClick={() => setTouchCardButton(false)}>
-                        Назад
-                    </button>
-                </div> :
                 <CardPage
                     randomWord={randomWord}
                     handleClickNextWord={handleClickNextWord}
@@ -192,17 +112,14 @@ function SelectCardPage () {
                     isTranslation={isTranslation}
                     setIsTranslation={setIsTranslation}
                     state={state}
-                    openNewSession={openNewSession}
                     changeLanguage={changeLanguage}
                     setTouchCardButton={setTouchCardButton}
-                />}
-            </main> :
-            <div>
-                <button onClick={() => navigate(-1)}>
-                    Назад
-                </button>
-                {cards}
-            </div> }
+                />:
+                <CardsMenu 
+                    handleClickCards={handleClickCards} 
+                    cardsTitles={cardsTitles}
+                />
+            }   
         </div>
     )
 }

@@ -8,7 +8,6 @@ function HomePage() {
 
     return (
         <>
-            <div>HomePage</div>
             <button onClick={() => navigate('cards', { replace: false })}>
                 Карточки
             </button>

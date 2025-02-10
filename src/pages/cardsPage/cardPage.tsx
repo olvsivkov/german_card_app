@@ -1,6 +1,7 @@
-import CardsMenu from './cardsMenu';
-
-import styles from './cardPage.module.css'
+import NavBarCard from './navBarCard';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+//@ts-expect-error
+import Loading from '../../components/loading/loading';
 
 interface GermanCard {
     ger: string;
@@ -15,15 +16,13 @@ interface CardPageProps {
     isTranslation: boolean;
     setIsTranslation: (boolean: boolean) => void;
     state: GermanCard[] | null | undefined;
-    openNewSession: () => void;
     changeLanguage: () => void;
     setTouchCardButton: (boolean: boolean) => void
-
 }
 
-function CardPage({ randomWord, handleClickNextWord, language, isTranslation, setIsTranslation, state, openNewSession, changeLanguage, setTouchCardButton }: CardPageProps) {
+function CardPage({ randomWord, handleClickNextWord, language, isTranslation, setIsTranslation, state, changeLanguage, setTouchCardButton }: CardPageProps) {
 
-    if (!randomWord) return <p>Загрузка...</p>;
+    if (!randomWord) return <Loading />;
 
     const { ger, id, rus } = randomWord;
 
@@ -42,25 +41,38 @@ function CardPage({ randomWord, handleClickNextWord, language, isTranslation, se
     }
 
     return(
-        <div>
-            <CardsMenu
-                state={state?.length}
-                language={language}
-                openNewSession={openNewSession}
-                changeLanguage={changeLanguage}
-                setTouchCardButton={setTouchCardButton}
-            />
-            <p>Cards</p>
-            <div className={styles.parent}>
-                <div className ={styles.left}>
-                    <div className ={styles.top}>
-                        {chooseLanguage}
+        <main>
+            {state?.length === 1 ? 
+            <div>
+                <p>Карточки закончились.</p>
+                <button onClick={() => setTouchCardButton(false)}>
+                    Назад
+                </button>
+            </div> :
+            <div>
+                {!randomWord ? 
+                    <Loading />:
+                    <div>
+                        <NavBarCard
+                            state={state?.length}
+                            language={language}
+                            changeLanguage={changeLanguage}
+                            setTouchCardButton={setTouchCardButton}
+                        />
+                        <p>Cards</p>
+                        <div>
+                            <div>
+                                <div>
+                                    {chooseLanguage}
+                                </div>
+                                <div onClick={handleTranslate}>Перевод</div>
+                            </div>
+                            <div onClick={() => handleClickNextWord(id)}>Далее</div>
+                        </div>
                     </div>
-                    <div className ={styles.bottom} onClick={handleTranslate}>Перевод</div>
-                </div>
-                <div className ={styles.right} onClick={() => handleClickNextWord(id)}>Далее</div>
-            </div>
-        </div>
+                }
+            </div>}
+        </main>
     )
 }
 

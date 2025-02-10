@@ -1,29 +1,38 @@
-import styles from './selectCardPage.module.css'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+//@ts-expect-error
+import {BackButtonNavigate} from "../../components/buttons/buttons.jsx";
 
-interface HeaderProps {
-    state: number | null | undefined; // Предполагаем, что state - это количество оставшихся слов
-    openNewSession: () => void; // Функция для сброса
-    changeLanguage: () => void; // Функция для смены языка
-    language: string | null; // Язык, который используется
-    setTouchCardButton: (boolean: boolean) => void
+import styles from "./selectCardPage.module.css"; 
+
+interface ItemCardProps {
+    cardName: string;
+    handleClickCards: (cardName: string) => void;
 }
 
-function CardsMenu({ state, openNewSession, changeLanguage, language, setTouchCardButton }: HeaderProps){
+interface ItemCardsProps {
+    cardsTitles: string[];
+    handleClickCards: (cardName: string) => void;
+}
 
-    return(
-        <div className={styles.header}>
+function ItemCard({ cardName, handleClickCards }: ItemCardProps) {
+    return( 
+        <div>
+            <button className={styles.card_button} onClick={() =>handleClickCards(cardName)}>{cardName}</button>
+        </div>
+    )
+}
+
+function CardsMenu({cardsTitles, handleClickCards}: ItemCardsProps){
+
+    const cards = cardsTitles.map((cardName) => <ItemCard key={cardName} cardName={cardName} handleClickCards={handleClickCards} />);
+
+    return (
+        <div>
             <div>
-                <p>Осталось слов: {state}</p>
-                <button onClick={openNewSession}>Сброс</button>
+                <BackButtonNavigate/>
             </div>
-            <div>
-                <button onClick={changeLanguage}>Менять язык</button>
-                <p>язык {language}</p>
-            </div>
-            <div>
-                <button onClick={() => setTouchCardButton(false)}>
-                    Назад
-                </button>
+            <div className={styles.cards_menu}>
+                {cards}
             </div>
         </div>
     )

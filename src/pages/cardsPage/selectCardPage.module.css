@@ -27,3 +27,19 @@
 p {
     color: #213547
 }
+
+.cards_menu {
+    justify-content: space-around;
+    padding: 1.2em 0;
+    gap: 1%;
+    display: flex;
+    width: 75%;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+.card_button {
+    height: 100px;
+    width: 100px;
+    margin: 1%;
+}
