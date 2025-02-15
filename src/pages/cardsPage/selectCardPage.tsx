@@ -3,17 +3,9 @@ import { useEffect, useState } from 'react';
 import CardPage from "./cardPage";
 import CardsMenu from './cardsMenu.js';
 
+import { GermanCard, CardData } from '../../types/cardsTypes';
+
 import styles from "./selectCardPage.module.css"; 
-
-interface GermanCard {
-    id: number;
-    ger: string;
-    rus: string;
-}
-
-interface CardData {
-    [key: string]: GermanCard[];
-  }
 
 function SelectCardPage () {
 
@@ -34,7 +26,8 @@ function SelectCardPage () {
     );
 
     async function fetchData() {
-        const url = 'https://olvsivkov.github.io/german_cards/api/data.json';
+        const url = import.meta.env.VITE_API_CARDS_URL
+        console.log(typeof url)
 
         try {
             const response = await fetch(url);
@@ -52,7 +45,6 @@ function SelectCardPage () {
         }
     }
     
-
     function getRandomWord(dataArray: GermanCard[]) {
         if (!dataArray || dataArray.length === 0) {
             return null;

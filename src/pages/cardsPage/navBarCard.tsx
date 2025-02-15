@@ -1,11 +1,6 @@
 import styles from './selectCardPage.module.css'
 
-interface HeaderProps {
-    state: number | null | undefined;
-    changeLanguage: () => void;
-    language: string | null;
-    setTouchCardButton: (boolean: boolean) => void
-}
+import { HeaderProps } from '../../types/cardsTypes';
 
 function NavBarCard({ state, changeLanguage, language, setTouchCardButton }: HeaderProps){
 

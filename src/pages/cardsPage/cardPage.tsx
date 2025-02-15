@@ -3,22 +3,7 @@ import NavBarCard from './navBarCard';
 //@ts-expect-error
 import Loading from '../../components/loading/loading';
 
-interface GermanCard {
-    ger: string;
-    id: number;
-    rus: string;
-}
-
-interface CardPageProps {
-    randomWord: GermanCard | null;
-    handleClickNextWord: (id: number) => void;
-    language: string | null;
-    isTranslation: boolean;
-    setIsTranslation: (boolean: boolean) => void;
-    state: GermanCard[] | null | undefined;
-    changeLanguage: () => void;
-    setTouchCardButton: (boolean: boolean) => void
-}
+import { CardPageProps } from '../../types/cardsTypes';
 
 function CardPage({ randomWord, handleClickNextWord, language, isTranslation, setIsTranslation, state, changeLanguage, setTouchCardButton }: CardPageProps) {
 

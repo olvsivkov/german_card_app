@@ -2,17 +2,9 @@
 //@ts-expect-error
 import {BackButtonNavigate} from "../../components/buttons/buttons.jsx";
 
+import { ItemCardProps,  ItemCardsProps} from "../../types/cardsTypes.js";
+
 import styles from "./selectCardPage.module.css"; 
-
-interface ItemCardProps {
-    cardName: string;
-    handleClickCards: (cardName: string) => void;
-}
-
-interface ItemCardsProps {
-    cardsTitles: string[];
-    handleClickCards: (cardName: string) => void;
-}
 
 function ItemCard({ cardName, handleClickCards }: ItemCardProps) {
     return( 
