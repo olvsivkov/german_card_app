@@ -1,34 +1,5 @@
-.body {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-} 
-
-.header {
-    background-color: #f9f9f9;
-    height: 15%;
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    padding: 10px; 
-}
-
-.header p {
-    margin: 0;
-}
-
-.main {
-    flex: 1;
-    padding: 20px;
-    background-color: #f9f9f9;
-}
-
-p {
-    color: #213547
-}
-
 .cards_menu {
+    font-family: inherit;
     justify-content: space-around;
     padding: 1.2em 0;
     gap: 1%;
@@ -39,7 +10,30 @@ p {
 }
 
 .card_button {
-    height: 100px;
-    width: 100px;
+    font-family: inherit;
+    height: 120px;
+    width: 120px;
     margin: 1%;
+    display: block;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    color: #7b7777;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.card_button:hover {
+    background-color: rgba(255, 255, 255, 0.7); /* Изменение фона при наведении */
+    backdrop-filter: blur(15px); /* Увеличение размытия при наведении */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Увеличение тени при наведении */
+}
+
+.gradient_box {
+    width: 100%;
+    background: linear-gradient(to bottom, #ff89406b, transparent);
 }

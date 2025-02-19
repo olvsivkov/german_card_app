@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import CardPage from "./cardPage";
 import CardsMenu from './cardsMenu.js';
+import Footer from '../../components/footer/footer.js';
+import Header from '../../components/header/header.js';
 
 import { GermanCard, CardData } from '../../types/cardsTypes';
 
@@ -95,24 +97,28 @@ function SelectCardPage () {
     }
 
     return (
-        <div className={styles.body}>
-            {touchCardButton ? 
-                <CardPage
-                    randomWord={randomWord}
-                    handleClickNextWord={handleClickNextWord}
-                    language={language}
-                    isTranslation={isTranslation}
-                    setIsTranslation={setIsTranslation}
-                    state={state}
-                    changeLanguage={changeLanguage}
-                    setTouchCardButton={setTouchCardButton}
-                />:
-                <CardsMenu 
-                    handleClickCards={handleClickCards} 
-                    cardsTitles={cardsTitles}
-                />
-            }   
-        </div>
+        <>
+            <Header/>
+            <div className={`${styles.body} ${styles.gradient_box}`}>
+                {touchCardButton ? 
+                    <CardPage
+                        randomWord={randomWord}
+                        handleClickNextWord={handleClickNextWord}
+                        language={language}
+                        isTranslation={isTranslation}
+                        setIsTranslation={setIsTranslation}
+                        state={state}
+                        changeLanguage={changeLanguage}
+                        setTouchCardButton={setTouchCardButton}
+                    />:
+                    <CardsMenu 
+                        handleClickCards={handleClickCards} 
+                        cardsTitles={cardsTitles}
+                    />
+                }   
+            </div>
+            <Footer/>   
+        </>
     )
 }
 

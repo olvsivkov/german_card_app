@@ -1,0 +1,8 @@
+.main {
+    flex: 1; /* Основной контент занимает все доступное пространство */
+}
+
+.gradient_box {
+    width: 100%;
+    background: linear-gradient(to bottom, #ff89406b, transparent);
+}

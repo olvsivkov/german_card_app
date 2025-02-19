@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-//@ts-expect-error
-import {BackButtonNavigate} from "../../components/buttons/buttons.jsx";
+import {BackButtonNavigate} from "../../components/buttons/buttons.js";
 
 import { ItemCardProps,  ItemCardsProps} from "../../types/cardsTypes.js";
 
@@ -8,9 +6,7 @@ import styles from "./selectCardPage.module.css";
 
 function ItemCard({ cardName, handleClickCards }: ItemCardProps) {
     return( 
-        <div>
-            <button className={styles.card_button} onClick={() =>handleClickCards(cardName)}>{cardName}</button>
-        </div>
+        <button className={styles.card_button} onClick={() =>handleClickCards(cardName)}>{cardName}</button>
     )
 }
 
