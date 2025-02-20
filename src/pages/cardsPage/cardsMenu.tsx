@@ -12,6 +12,7 @@ function ItemCard({ cardName, handleClickCards }: ItemCardProps) {
 
 function CardsMenu({cardsTitles, handleClickCards}: ItemCardsProps){
 
+
     const cards = cardsTitles.map((cardName) => <ItemCard key={cardName} cardName={cardName} handleClickCards={handleClickCards} />);
 
     return (
@@ -22,6 +23,7 @@ function CardsMenu({cardsTitles, handleClickCards}: ItemCardsProps){
             <div className={styles.cards_menu}>
                 {cards}
             </div>
+
         </div>
     )
 }

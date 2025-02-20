@@ -114,6 +114,7 @@ function SelectCardPage () {
                     <CardsMenu 
                         handleClickCards={handleClickCards} 
                         cardsTitles={cardsTitles}
+                        state={state}
                     />
                 }   
             </div>

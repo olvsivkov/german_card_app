@@ -1,6 +1,6 @@
 .cards_menu {
     font-family: inherit;
-    justify-content: space-around;
+    justify-content: center;
     padding: 1.2em 0;
     gap: 1%;
     display: flex;
@@ -13,7 +13,6 @@
     font-family: inherit;
     height: 120px;
     width: 120px;
-    margin: 1%;
     display: block;
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.5);
@@ -28,12 +27,64 @@
 }
 
 .card_button:hover {
-    background-color: rgba(255, 255, 255, 0.7); /* Изменение фона при наведении */
-    backdrop-filter: blur(15px); /* Увеличение размытия при наведении */
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Увеличение тени при наведении */
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 }
 
 .gradient_box {
     width: 100%;
     background: linear-gradient(to bottom, #ff89406b, transparent);
+}
+
+.button {
+    font-family: inherit;
+    height: 40px;
+    width: 124px;
+    border: 1px solid #f28e37;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.nav_bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.center_block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Отступ между элементами */
+}
+
+.choose_language {
+    font-size: 50px; /* Размер текста */
+    margin-top: 5%;
+}
+
+.actions {
+    display: flex;
+    gap: 20px; /* Отступ между кнопками */
+}
+
+.translate_button,
+.next_button {
+    padding: 10px 20px; /* Отступы внутри кнопок */
+    font-size: 18px; /* Размер текста */
+    cursor: pointer; /* Курсор в виде указателя */
+    border: none; /* Убираем границу */
+    border-radius: 4px; /* Закругляем углы */
+    background-color: #007bff; /* Синий цвет фона */
+    color: white; /* Белый текст */
+    transition: background-color 0.3s ease; /* Плавное изменение цвета */
+}
+
+.translate_button:hover,
+.next_button:hover {
+    background-color: #0056b3; /* Темно-синий цвет при наведении */
 }

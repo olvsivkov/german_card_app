@@ -13,7 +13,9 @@ function HomePage() {
         <>
             <Header/>
             <main className={`${styles.main} ${styles.gradient_box}`}>
-                <button onClick={() => navigate('cards', { replace: false })}>
+                <button 
+                className={styles.button}
+                onClick={() => navigate('cards', { replace: false })}>
                     Карточки
                 </button>
             </main>

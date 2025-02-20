@@ -34,4 +34,5 @@ export  interface ItemCardProps {
 export interface ItemCardsProps {
     cardsTitles: string[];
     handleClickCards: (cardName: string) => void;
+    state: GermanCard[] | null | undefined;
 }

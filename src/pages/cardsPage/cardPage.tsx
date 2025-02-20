@@ -5,6 +5,8 @@ import Loading from '../../components/loading/loading';
 
 import { CardPageProps } from '../../types/cardsTypes';
 
+import styles from './selectCardPage.module.css'
+
 function CardPage({ randomWord, handleClickNextWord, language, isTranslation, setIsTranslation, state, changeLanguage, setTouchCardButton }: CardPageProps) {
 
     if (!randomWord) return <Loading />;
@@ -25,6 +27,17 @@ function CardPage({ randomWord, handleClickNextWord, language, isTranslation, se
         setIsTranslation(!isTranslation)
     }
 
+    
+    const decrementState = () => {
+        if (state?.length !== undefined && state?.length > 0) {
+            return state?.length - 1;
+        } else {
+            return 0;
+        }
+    };
+
+    const remainingWords = decrementState();
+
     return(
         <main>
             {state?.length === 1 ? 
@@ -44,15 +57,15 @@ function CardPage({ randomWord, handleClickNextWord, language, isTranslation, se
                             changeLanguage={changeLanguage}
                             setTouchCardButton={setTouchCardButton}
                         />
-                        <p>Cards</p>
-                        <div>
-                            <div>
-                                <div>
-                                    {chooseLanguage}
-                                </div>
-                                <div onClick={handleTranslate}>Перевод</div>
+                        <div className={styles.center_block}>
+                            <div className={styles.choose_language}>{chooseLanguage}</div>
+                            <div className={styles.actions}>
+                                <div className={styles.translate_button} onClick={handleTranslate}>Перевод</div>
+                                <div className={styles.next_button} onClick={() => handleClickNextWord(id)}>Далее</div>
                             </div>
-                            <div onClick={() => handleClickNextWord(id)}>Далее</div>
+                        </div>
+                        <div>
+                            <p>Осталось слов: {remainingWords}</p>
                         </div>
                     </div>
                 }
