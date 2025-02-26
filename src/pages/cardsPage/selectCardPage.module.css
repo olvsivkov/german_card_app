@@ -88,3 +88,46 @@
 .next_button:hover {
     background-color: #0056b3; /* Темно-синий цвет при наведении */
 }
+
+.container {
+    width: 70px;
+    height: 40px;
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    background-color: #f0f0f0;
+}
+  
+.circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+  
+.flag {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+  
+.flagStrip {
+    flex: 1;
+}
+
+.actionBTN {
+    cursor: pointer;
+}
+
+.actionBTN:active {
+    transform: translateY(2px);
+}

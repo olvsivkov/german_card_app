@@ -42,6 +42,8 @@ function SelectCardPage () {
             const allKeys = Object.keys(jsonData);
             setCardsTitles(allKeys);
             setJsonData(jsonData)
+            console.log(state)
+            console.log(jsonData)
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
         }
@@ -91,9 +93,9 @@ function SelectCardPage () {
         setRandomWord(getRandomWord(jsonData[key])); 
     }
 
-    function changeLanguage(){
-        if(language === "ger") setLanguage("rus")
-        else setLanguage("ger")
+    function changeLanguage(string: string) {
+        setLanguage(string)
+
     }
 
     return (

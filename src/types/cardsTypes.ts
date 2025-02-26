@@ -1,7 +1,6 @@
 export interface HeaderProps {
     state: number | null | undefined;
-    changeLanguage: () => void;
-    language: string | null;
+    changeLanguage: (string: string) => void;
     setTouchCardButton: (boolean: boolean) => void
 }
 
@@ -18,7 +17,7 @@ export interface CardPageProps {
     isTranslation: boolean;
     setIsTranslation: (boolean: boolean) => void;
     state: GermanCard[] | null | undefined;
-    changeLanguage: () => void;
+    changeLanguage: (string: string) => void;
     setTouchCardButton: (boolean: boolean) => void
 }
 

@@ -5,9 +5,21 @@ import Loading from '../../components/loading/loading';
 
 import { CardPageProps } from '../../types/cardsTypes';
 
+import NextBTN from '../../assets/btn --next.svg'
+import TranslateBTN from '../../assets/btn --translate.svg'
+
 import styles from './selectCardPage.module.css'
 
-function CardPage({ randomWord, handleClickNextWord, language, isTranslation, setIsTranslation, state, changeLanguage, setTouchCardButton }: CardPageProps) {
+function CardPage({ 
+    randomWord, 
+    handleClickNextWord, 
+    language, 
+    isTranslation, 
+    setIsTranslation, 
+    state, 
+    changeLanguage, 
+    setTouchCardButton 
+}: CardPageProps) {
 
     if (!randomWord) return <Loading />;
 
@@ -43,7 +55,9 @@ function CardPage({ randomWord, handleClickNextWord, language, isTranslation, se
             {state?.length === 1 ? 
             <div>
                 <p>Карточки закончились.</p>
-                <button onClick={() => setTouchCardButton(false)}>
+                <button 
+                    className={styles.button}
+                    onClick={() => setTouchCardButton(false)}>
                     Назад
                 </button>
             </div> :
@@ -53,15 +67,24 @@ function CardPage({ randomWord, handleClickNextWord, language, isTranslation, se
                     <div>
                         <NavBarCard
                             state={state?.length}
-                            language={language}
                             changeLanguage={changeLanguage}
                             setTouchCardButton={setTouchCardButton}
                         />
                         <div className={styles.center_block}>
                             <div className={styles.choose_language}>{chooseLanguage}</div>
                             <div className={styles.actions}>
-                                <div className={styles.translate_button} onClick={handleTranslate}>Перевод</div>
-                                <div className={styles.next_button} onClick={() => handleClickNextWord(id)}>Далее</div>
+                                <img
+                                    src={TranslateBTN}
+                                    alt="Translate button"
+                                    onClick={handleTranslate}
+                                    className={styles.actionBTN}
+                                />
+                                <img
+                                    src={NextBTN}
+                                    alt="Next button"
+                                    onClick={() => handleClickNextWord(id)}
+                                    className={styles.actionBTN}
+                                />
                             </div>
                         </div>
                         <div>
