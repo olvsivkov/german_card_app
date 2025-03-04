@@ -2,12 +2,10 @@ import NavBarCard from './navBarCard';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 //@ts-expect-error
 import Loading from '../../components/loading/loading';
-
+import ProgressBar from '../../components/progressBar/progressBar';
 import { CardPageProps } from '../../types/cardsTypes';
-
 import NextBTN from '../../assets/btn --next.svg'
 import TranslateBTN from '../../assets/btn --translate.svg'
-
 import styles from './selectCardPage.module.css'
 
 function CardPage({ 
@@ -88,7 +86,11 @@ function CardPage({
                             </div>
                         </div>
                         <div>
-                            <p>Осталось слов: {remainingWords}</p>
+                            <ProgressBar 
+                                remainingWords={remainingWords}
+                                state={state?.length} 
+                                words={"слов"}
+                            />
                         </div>
                     </div>
                 }

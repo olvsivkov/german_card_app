@@ -35,3 +35,9 @@ export interface ItemCardsProps {
     handleClickCards: (cardName: string) => void;
     state: GermanCard[] | null | undefined;
 }
+
+export interface ProgressBarProps  {
+    state: number | null | undefined;
+    remainingWords: number;
+    words: string;
+}
