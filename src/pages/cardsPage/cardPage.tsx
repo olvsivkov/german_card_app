@@ -62,14 +62,14 @@ function CardPage({
             <div>
                 {!randomWord ? 
                     <Loading />:
-                    <div>
+                    <div className={styles.card_container}>
                         <NavBarCard
                             state={state?.length}
                             changeLanguage={changeLanguage}
                             setTouchCardButton={setTouchCardButton}
                         />
+                        <div className={styles.choose_language}>{chooseLanguage}</div>
                         <div className={styles.center_block}>
-                            <div className={styles.choose_language}>{chooseLanguage}</div>
                             <div className={styles.actions}>
                                 <img
                                     src={TranslateBTN}
@@ -84,8 +84,6 @@ function CardPage({
                                     className={styles.actionBTN}
                                 />
                             </div>
-                        </div>
-                        <div>
                             <ProgressBar 
                                 remainingWords={remainingWords}
                                 state={state?.length} 

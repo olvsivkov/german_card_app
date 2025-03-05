@@ -8,3 +8,7 @@
   min-height: 100vh;
 }
 
+body {
+  background: linear-gradient(to bottom, #ff89406b, transparent);
+}
+

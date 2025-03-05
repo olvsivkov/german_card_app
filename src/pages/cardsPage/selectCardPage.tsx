@@ -29,7 +29,6 @@ function SelectCardPage () {
 
     async function fetchData() {
         const url = import.meta.env.VITE_API_CARDS_URL
-        console.log(typeof url)
 
         try {
             const response = await fetch(url);
@@ -42,8 +41,6 @@ function SelectCardPage () {
             const allKeys = Object.keys(jsonData);
             setCardsTitles(allKeys);
             setJsonData(jsonData)
-            console.log(state)
-            console.log(jsonData)
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
         }
@@ -101,7 +98,7 @@ function SelectCardPage () {
     return (
         <>
             <Header/>
-            <div className={`${styles.body} ${styles.gradient_box}`}>
+            <div className={styles.body}>
                 {touchCardButton ? 
                     <CardPage
                         randomWord={randomWord}

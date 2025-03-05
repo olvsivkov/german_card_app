@@ -2,6 +2,18 @@
     height: 10%; 
     display: flex;
     align-items: center; 
-    justify-content: center; 
+    justify-content: space-around; 
     margin-top: auto;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    padding-left: 5%;
+    display: inline-block;
+}
+
+.social_links {
+    display: inline-block;
+    width: 300px;
 }
