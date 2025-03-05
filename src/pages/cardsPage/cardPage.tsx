@@ -25,9 +25,9 @@ function CardPage({
 
     function getTranslatedText(language: string | null, isTranslation: boolean, ger: string, rus: string ) {
         if (language === "ger") {
-            return isTranslation ? <h2>{rus}</h2> : <h2>{ger}</h2>;
+            return isTranslation ? <p>{rus}</p> : <p>{ger}</p>;
         } else {
-            return isTranslation ? <h2>{ger}</h2> : <h2>{rus}</h2>;
+            return isTranslation ? <p>{ger}</p> : <p>{rus}</p>;
         }
     }
 
