@@ -48,6 +48,7 @@ function SelectCardPage () {
 // пробный fetch
         async function fetchData() {
             const url = import.meta.env.VITE_API_CARDS_URL;
+            console.error('адрес url', url);
         
             try {
                 const response = await fetch(url);
