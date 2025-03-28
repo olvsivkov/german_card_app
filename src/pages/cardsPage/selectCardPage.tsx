@@ -47,8 +47,8 @@ function SelectCardPage () {
     }*/
 // пробный fetch
         async function fetchData() {
-            //const url = import.meta.env.VITE_API_CARDS_URL;
-            const url = 'https://olvsivkov.github.io/german_cards/api/data.json';
+            const url = import.meta.env.VITE_API_CARDS_URL;
+            //const url = 'https://olvsivkov.github.io/german_cards/api/data.json';
             console.error('адрес url', url);
         
             try {
