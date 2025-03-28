@@ -27,7 +27,7 @@ function SelectCardPage () {
         }, []
     );
 
-    /*async function fetchData() {
+    async function fetchData() {
         const url = import.meta.env.VITE_API_CARDS_URL
 
         try {
@@ -44,36 +44,7 @@ function SelectCardPage () {
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
         }
-    }*/
-// пробный fetch
-        async function fetchData() {
-            const url = import.meta.env.VITE_API_CARDS_URL;
-            //const url = 'https://olvsivkov.github.io/german_cards/api/data.json';
-            console.error('адрес url', url);
-        
-            try {
-                const response = await fetch(url);
-                
-                // Выводим статус и сырой текст для отладки
-                console.log("HTTP Status:", response.status);
-                const rawText = await response.text();
-                console.log("Ответ сервера (сырой текст):", rawText);
-        
-                // Если ответ не JSON, выбросим ошибку
-                if (!response.headers.get('content-type')?.includes('application/json')) {
-                    throw new Error(`Сервер вернул не JSON! Ответ: ${rawText.slice(0, 100)}...`);
-                }
-        
-                const jsonData = JSON.parse(rawText); // Парсим вручную (на случай, если fetch.json() падает)
-                const allKeys = Object.keys(jsonData);
-                setCardsTitles(allKeys);
-                setJsonData(jsonData);
-            } catch (error) {
-                console.error('Ошибка при загрузке данных:', error);
-            }
-        }
-
-        // окончание
+    }
     
     function getRandomWord(dataArray: GermanCard[]) {
         if (!dataArray || dataArray.length === 0) {
