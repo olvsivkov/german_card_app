@@ -32,6 +32,7 @@
     text-align: center;
     cursor: pointer;
     transition: all 0.2s ease;
+    margin: 2px;
 }
 
 .card_button:hover {
