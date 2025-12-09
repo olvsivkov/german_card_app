@@ -32,9 +32,14 @@ function SelectCardPage () {
     );
 
     async function fetchData() {
+
+        console.log('ALL ENV:', import.meta.env); 
+
         const url = level === 'a2' 
-            ? import.meta.env.VITE_API_CARDS_A2_URL 
-            : import.meta.env.VITE_API_CARDS_URL;
+            ? 'https://olvsivkov.github.io/german_cards/api/data_a2.json' 
+            : 'https://olvsivkov.github.io/german_cards/api/data.json';
+
+            console.log('URL:', url);  // ← Должно показать URL, не undefined!
 
         try {
             const response = await fetch(url);

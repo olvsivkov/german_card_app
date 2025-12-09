@@ -5,6 +5,6 @@ interface ImportMetaEnv {
     readonly VITE_API_CARDS_A2_URL: string
 }
 
-interface ImportMeta  {
+interface ImportMeta {
     readonly env: ImportMetaEnv
 }
