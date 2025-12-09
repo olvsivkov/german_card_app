@@ -8,7 +8,7 @@ import SelectCardPage from './pages/cardsPage/selectCardPage';
 function App() {
 
   return (
-      <BrowserRouter basename="/german_card_app">
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage/>} />
           <Route path="cards" element={<SelectCardPage />} />
