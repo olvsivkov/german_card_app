@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import CardPage from "./cardPage";
 import CardsMenu from './cardsMenu.js';
@@ -10,6 +11,9 @@ import { GermanCard, CardData } from '../../types/cardsTypes';
 import styles from "./selectCardPage.module.css"; 
 
 function SelectCardPage () {
+
+    const location = useLocation();  // Добавьте для чтения state
+    const level = location.state?.level || 'main';  // Определяем уровень
 
     const [state, setState] = useState<GermanCard[] | null>(null);
     const [jsonData, setJsonData] = useState<CardData | null>(null);
@@ -24,11 +28,13 @@ function SelectCardPage () {
     useEffect(
         () => {
             fetchData();
-        }, []
+        }, [level]
     );
 
     async function fetchData() {
-        const url = import.meta.env.VITE_API_CARDS_URL
+        const url = level === 'a2' 
+            ? import.meta.env.VITE_API_CARDS_A2_URL 
+            : import.meta.env.VITE_API_CARDS_URL;
 
         try {
             const response = await fetch(url);
