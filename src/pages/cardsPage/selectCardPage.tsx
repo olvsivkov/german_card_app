@@ -33,9 +33,13 @@ function SelectCardPage () {
 
     async function fetchData() {
 
-        const url = level === 'a2' 
-            ? 'https://olvsivkov.github.io/german_cards/api/data_a2.json' 
-            : 'https://olvsivkov.github.io/german_cards/api/data.json';
+        const urls: Record<string, string> = {
+        main: 'https://olvsivkov.github.io/german_cards/api/data.json',
+        a2:   'https://olvsivkov.github.io/german_cards/api/data_a2.json',
+        b1:   'https://olvsivkov.github.io/german_cards/api/data_b1.json',
+        };
+
+        const url = urls[level] ?? urls.main;
 
         try {
             const response = await fetch(url);

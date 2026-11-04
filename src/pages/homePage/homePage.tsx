@@ -21,6 +21,11 @@ function HomePage() {
                     onClick={() => navigate('cards', { state: { level: 'a2' } })}>
                     Слова и фразы уровень А2
                 </button>
+                <button 
+                    className={styles.button}
+                    onClick={() => navigate('cards', { state: { level: 'b1' } })}>
+                    Слова уровень B1
+                </button>
             </main>
             <Footer/>
         </>
