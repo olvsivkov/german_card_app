@@ -37,7 +37,7 @@ function SelectCardPage () {
         main: 'https://olvsivkov.github.io/german_cards/api/data.json',
         a2:   'https://olvsivkov.github.io/german_cards/api/data_a2.json',
         b1:   'https://olvsivkov.github.io/german_cards/api/data_b1.json',
-        Wörter:   'https://olvsivkov.github.io/german_cards/api/data_wort.json',
+        Worter:   'https://olvsivkov.github.io/german_cards/api/data_wort.json',
         };
 
         const url = urls[level] ?? urls.main;
